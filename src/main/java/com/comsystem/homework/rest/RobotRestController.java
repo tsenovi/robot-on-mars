@@ -1,7 +1,6 @@
 package com.comsystem.homework.rest;
 
 import com.comsystem.homework.model.RobotPlan;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,7 +23,7 @@ public final class RobotRestController {
      * via HTTP
      */
     @PostMapping("/excavation")
-    public ResponseEntity<RobotPlan> excavateStones(@Valid @RequestParam Integer numberOfDays) {
+    public ResponseEntity<RobotPlan> excavateStones(@RequestParam Integer numberOfDays) {
 
         return ResponseEntity.ok(robotOperations.excavateStonesForDays(numberOfDays));
     }
