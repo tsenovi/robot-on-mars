@@ -8,11 +8,11 @@
 
 Тъй като и двете операции отнемат цял ден, роботът не може да се клонира и да събира камъни в един и същи ден.
 
-Довършете имплементацията на двата класа [RobotOperations](/src/main/java/com/comsystem/homework/robot/RobotOperations.java)
+Довършете имплементацията на двата класа [RobotOperations](/src/main/java/com/comsystem/homework/service/RobotOperations.java)
 и [RobotRestController](/src/main/java/com/comsystem/homework/rest/RobotRestController.java). Там ще намерите и 
 допълнителни ориентировъчни коментари.
 Моля, имплементирайте и два unit теста, които да доказват коректността на двата метода в
-[RobotOperations](/src/main/java/com/comsystem/homework/robot/RobotOperations.java).
+[RobotOperations](/src/main/java/com/comsystem/homework/service/RobotOperations.java).
 
 Позволено е да използвате всякакви външни библиотеки, които могат да се намерят в
 [Maven Central Repository](https://mvnrepository.com). Не е позволено да се променят сигнатурите (method signature) на 

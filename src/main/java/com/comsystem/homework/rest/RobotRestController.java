@@ -1,18 +1,18 @@
 package com.comsystem.homework.rest;
 
+import com.comsystem.homework.constraint.PositiveNumber;
 import com.comsystem.homework.model.RobotPlan;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.comsystem.homework.robot.RobotOperations;
+import com.comsystem.homework.service.RobotOperations;
 
 @RestController
 @RequiredArgsConstructor
-@Validated
 @RequestMapping("/api/v1/robot/operation")
 public final class RobotRestController {
 
@@ -23,7 +23,8 @@ public final class RobotRestController {
      * via HTTP
      */
     @PostMapping("/excavation")
-    public ResponseEntity<RobotPlan> excavateStones(@RequestParam Integer numberOfDays) {
+    public ResponseEntity<RobotPlan> excavateStones(
+        @Valid @PositiveNumber @RequestParam Integer numberOfDays) {
 
         return ResponseEntity.ok(robotOperations.excavateStonesForDays(numberOfDays));
     }
@@ -33,7 +34,8 @@ public final class RobotRestController {
      * {@link RobotOperations#daysRequiredToCollectStones(int)} via HTTP
      */
     @PostMapping("/approximation")
-    public ResponseEntity<RobotPlan> approximateDays(@RequestParam Integer numberOfStones) {
+    public ResponseEntity<RobotPlan> approximateDays(
+        @Valid @PositiveNumber @RequestParam Integer numberOfStones) {
 
         return ResponseEntity.ok(robotOperations.daysRequiredToCollectStones(numberOfStones));
     }

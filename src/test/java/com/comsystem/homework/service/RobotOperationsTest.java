@@ -1,4 +1,4 @@
-package com.comsystem.homework.robot;
+package com.comsystem.homework.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 

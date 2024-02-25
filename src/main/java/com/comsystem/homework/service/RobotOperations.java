@@ -1,4 +1,4 @@
-package com.comsystem.homework.robot;
+package com.comsystem.homework.service;
 
 
 import com.comsystem.homework.model.RobotAction;
@@ -28,17 +28,15 @@ public class RobotOperations {
      * @see RobotPlan
      */
     public RobotPlan excavateStonesForDays(int days) {
-        List<RobotAction> robotActions = new ArrayList<>();
-        int numberOfStones = 0;
 
-        for (int day = 0; day < days; day++) {
-            if (day == days - 1) {
-                numberOfStones += getPowOfBase(day);
-                robotActions.add(RobotAction.DIG);
-            } else {
-                robotActions.add(RobotAction.CLONE);
-            }
-        }
+        // Clone for (days - 1) times
+        int previousDays = days - 1;
+        List<RobotAction> robotActions = new ArrayList<>(
+            Collections.nCopies(previousDays, RobotAction.CLONE));
+
+        // Dig on the last day
+        int numberOfStones = getNumberOfClonedRobots(previousDays);
+        robotActions.add(RobotAction.DIG);
 
         return new RobotPlan(days, numberOfStones, robotActions);
     }
@@ -72,14 +70,14 @@ public class RobotOperations {
         int highestExponent, oldHighestExponent, numberOfDays = 0;
 
         while (numberOfStones > 0) {
-            highestExponent = getHighestExponentOfBase(numberOfStones);
-            numberOfStones -= getPowOfBase(highestExponent);
+            highestExponent = getHighestExponentOfRobotsInStones(numberOfStones);
+            numberOfStones -= getNumberOfClonedRobots(highestExponent);
             robotActions.add(RobotAction.DIG);
             numberOfDays++;
 
             if (numberOfStones >= 0) {
                 oldHighestExponent = highestExponent;
-                highestExponent = getHighestExponentOfBase(numberOfStones);
+                highestExponent = getHighestExponentOfRobotsInStones(numberOfStones);
 
                 int numberOfDaysToClone = oldHighestExponent - highestExponent;
                 robotActions.addAll(Collections.nCopies(numberOfDaysToClone, RobotAction.CLONE));
@@ -96,7 +94,7 @@ public class RobotOperations {
      * uses the Math.pow function to perform the calculation and then casts the result to an
      * integer.
      */
-    private int getPowOfBase(int highestExponent) {
+    private int getNumberOfClonedRobots(int highestExponent) {
 
         return (int) Math.pow(BASE, highestExponent);
     }
@@ -106,7 +104,7 @@ public class RobotOperations {
      * number of stones. It uses the mathematical formula for changing the base of a logarithm and
      * effectively rounds down the result by casting the double result to an int.
      */
-    private int getHighestExponentOfBase(int numberOfStones) {
+    private int getHighestExponentOfRobotsInStones(int numberOfStones) {
         if (numberOfStones <= 0) {
             return 0;
         }
